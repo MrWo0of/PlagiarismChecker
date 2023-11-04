@@ -1,28 +1,21 @@
 import os
 from difflib import SequenceMatcher
 
-file = [f for f in os.listdir() if f.endswith('.txt')]
-print(file)
+# Directory variable.
+direc = 'Files/'
+fileList = [direc + f for f in os.listdir(direc) if f.endswith('.txt')]
+checkFile = input('Enter the file\'s path to check for plagiarism: ')
+checkFileName = checkFile.strip('.txt')
+checkFile = open(checkFile, 'r')
+checkFileRead = checkFile.read()
 
-# Read the content of each student's file
-student_docs = [open(f).read() for f in file]
 
-# Print the list of student files and their content
-for filename, document in zip(file, student_docs):
-    print(f"File: {filename}")
-    print("Content:")
-    print(document)
-    print("-" * 30)  # Separator between documents
-'''
-testFile = open('Files/Test1.txt', 'r')
-testFile2 = open('Files/Test2.txt', 'r')
+documents = [open(f).read() for f in fileList]
 
-file1 = testFile.read()
-file2 = testFile2.read()
-print(file1, '\n', file2)
 
-ab = SequenceMatcher(None, file2, file1).ratio()
+for filename, document in zip(fileList, documents):
+    ab = SequenceMatcher(None, document, checkFileRead).ratio()
+    result = int(ab * 100)
+    if result >= 50:
+        print(f'Potential plagiarism detected in {checkFileName} matching {result}% with {filename}')
 
-result = int(ab * 100)
-print(f'{result}% plagiarized')
-'''
