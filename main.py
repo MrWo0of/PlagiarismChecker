@@ -1,6 +1,8 @@
 import os
+import DataStructure
 from difflib import SequenceMatcher
 finished = False
+filesplit = DataStructure.FileSplitter()
 while finished is not True:
     modeDict = {'p': 'Percent Mode', 'q': 'Quarter Mode', 'h': 'Half Mode',
                 't': 'Three-Fourths mode', 'f': 'Fully Plagiarised mode'}
@@ -10,20 +12,25 @@ while finished is not True:
                  'Enter "t" to check for files with above 75% plagiarized\n'
                  'Enter "f" to check for 100% plagiarism in files\n>    ')
 
+    checkFile = 'sample-3.txt'
+    checkFileName = checkFile.strip('.txt')
+    checkFileRead = filesplit.separate(checkFile)
+
+
     # Directory variable.
     direc = 'Files/'
-    fileList = [direc + f for f in os.listdir(direc) if f.endswith('.txt')]
-    checkFile = input('Enter the file\'s name to check for plagiarism: ')
-    checkFileName = checkFile.strip('.txt')
-    checkFileOpen = open(checkFile, 'r')
-    checkFileRead = checkFileOpen.read()
+    fileList = []
+    for file in os.listdir('Files/'):
+        filepath = direc + file
+        convertedFile = filesplit.separate(filepath)
+        fileList.append(convertedFile)
 
 
-    documents = [open(f).read() for f in fileList]
-
+    for file in fileList:
+        documents = file.values()
 
     for filename, document in zip(fileList, documents):
-        ab = SequenceMatcher(None, document, checkFileRead).ratio()
+        ab = SequenceMatcher(None, document, filename).ratio()
         result = int(ab * 100)
         if mode == 'p':
             print(f'Potential plagiarism detected in {checkFileName} matching {result}% with {filename}')
