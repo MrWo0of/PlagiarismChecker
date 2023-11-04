@@ -1,6 +1,8 @@
 from collections.abc import MutableMapping
+
+
 class HomebrewMap(MutableMapping):
-    __slots__ = '_key', '_value'
+    __slots__ = '_key', '_value', '_table'
 
     class Item:
         def __init__(self, key, value):
@@ -65,11 +67,22 @@ class FileSplitter:
         return lineMap
 
     def compare(self, dict1, dict2):
-        pass
+        score = 0
+        if len(dict1) >= len(dict2):
+            size = len(dict2)
+            for i in range(len(dict2)):
+                print(i)
+                if dict2[i + 1] in dict1.values():
+                    score += 1
+        elif dict1 < dict2:
+            for i in range(len(dict2)):
+                size = len(dict1)
+                if dict1[i] in dict2.values():
+                    score += 1
+        total = round(size / score, 2)
+        return total
 
-map = HomebrewMap()
-
-
-map.__setitem__('k', 'v')
-
-print(map)
+filesplitter = FileSplitter()
+dict1 = filesplitter.separate('sample-2.txt')
+dict2 = filesplitter.separate('sample-3.txt')
+print(filesplitter.compare(dict1, dict2))
