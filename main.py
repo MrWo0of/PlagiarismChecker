@@ -1,13 +1,18 @@
+import os
 from difflib import SequenceMatcher
-import Files
 
-
-testFile = open('Files/Test1', 'r')
-testFile2 = open('Files/Test2', 'r')
+file = [f for f in os.listdir() if f.endswith('.txt')]
+print(file)
+'''
+testFile = open('Files/Test1.txt', 'r')
+testFile2 = open('Files/Test2.txt', 'r')
 
 file1 = testFile.read()
-file2 = testFile.read()
+file2 = testFile2.read()
+print(file1, '\n', file2)
 
-ab = SequenceMatcher(None, file1, file2).ratio()
+ab = SequenceMatcher(None, file2, file1).ratio()
 
-print(int(ab * 100))
+result = int(ab * 100)
+print(f'{result}% plagiarized')
+'''
