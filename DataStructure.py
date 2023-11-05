@@ -48,6 +48,18 @@ class HomebrewMap(MutableMapping):
         for item in self._table:
             yield item._key
 
+    def __lt__(self, other):
+        return len(self) < len(other)
+
+    def __gt__(self, other):
+        return len(self) > len(other)
+
+    def __le__(self, other):
+        return len(self) <= len(other)
+
+    def __ge__(self, other):
+        return len(self) >= len(other)
+
 
 class FileSplitter:
     def __init__(self):
@@ -68,21 +80,27 @@ class FileSplitter:
 
     def compare(self, dict1, dict2):
         score = 0
+        size = 1
         if len(dict1) >= len(dict2):
             size = len(dict2)
             for i in range(len(dict2)):
-                print(i)
                 if dict2[i + 1] in dict1.values():
                     score += 1
         elif dict1 < dict2:
-            for i in range(len(dict2)):
+            size = len(dict1)
+            for i in range(len(dict1)):
                 size = len(dict1)
-                if dict1[i] in dict2.values():
+                if dict1[i + 1] in dict2.values():
                     score += 1
-        total = round(size / score, 2)
+        else:
+            raise IndexError('One of the maps is empty')
+        total = round(score / size, 2)
         return total
 
-filesplitter = FileSplitter()
-dict1 = filesplitter.separate('sample-2.txt')
-dict2 = filesplitter.separate('sample-3.txt')
-print(filesplitter.compare(dict1, dict2))
+
+'''
+filesep = FileSplitter()
+dict1 = filesep.separate('sample-3.txt')
+dict2 = filesep.separate('sample-4.txt')
+print(filesep.compare(dict1, dict2))
+'''
