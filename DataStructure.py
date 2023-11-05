@@ -1,6 +1,7 @@
 from collections.abc import MutableMapping
 
-
+# Homebrew class created from MutableMapping base.
+# MOSTLY FROM
 class HomebrewMap(MutableMapping):
     __slots__ = '_key', '_value', '_table'
 
@@ -65,12 +66,12 @@ class FileSplitter:
     def __init__(self):
         percent = 0
 
-
     def separate(self, file):
         lineMap = HomebrewMap()
         lineNum = 1
         openedFile = open(file, 'r', encoding='mbcs')
-        for line in openedFile:
+        lines = openedFile.read().split('.')
+        for line in lines:
             currentLine = line.strip('\n')
             sepLine = currentLine.split(' ')
             sepLine.sort()
@@ -84,23 +85,15 @@ class FileSplitter:
         if len(dict1) >= len(dict2):
             size = len(dict2)
             for i in range(len(dict2)):
-                if dict2[i + 1] in dict1.values():
+                if dict2[i + 1] in dict1.values() and dict2[i + 1] != '':
                     score += 1
         elif dict1 < dict2:
             size = len(dict1)
             for i in range(len(dict1)):
                 size = len(dict1)
-                if dict1[i + 1] in dict2.values():
+                if dict1[i + 1] in dict2.values() and dict1[i + 1] != '':
                     score += 1
         else:
             raise IndexError('One of the maps is empty')
         total = round(score / size, 2)
         return total
-
-
-'''
-filesep = FileSplitter()
-dict1 = filesep.separate('sample-3.txt')
-dict2 = filesep.separate('sample-4.txt')
-print(filesep.compare(dict1, dict2))
-'''

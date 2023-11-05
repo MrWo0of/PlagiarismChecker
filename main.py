@@ -12,7 +12,7 @@ while finished is not True:
                  'Enter "t" to check for files with above 75% plagiarized\n'
                  'Enter "f" to check for 100% plagiarism in files\n>    ')
 
-    checkFile = 'sample-2.txt'
+    checkFile = input('Enter name of file to check: ')
     checkFileName = checkFile.strip('.txt')
     checkFileRead = filesep.separate(checkFile)
 
@@ -44,7 +44,7 @@ while finished is not True:
             elif result >= 100 and mode == 'f':
                 print(f'Potential plagiarism detected in {checkFileName} matching {result}% with {fileNames}')
             else:
-                print(f'Plagiarism not within amount specified for {checkFileName}')
+                print(f'Plagiarism not within amount specified for {fileNames}')
         except IndexError:
             continue
 
