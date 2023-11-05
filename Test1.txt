@@ -1,0 +1,7 @@
+This file should show a decent amount plagiarized as the second half of the file is taken from Sample-2.txt
+This is a test.  It will be used to test the plagiarism checker over the next few days.
+Dreamers dream, and so do I.
+* Lorem ipsum dolor sit amet.
+* Consectetuer adipiscing elit.
+* Sed diam nonummy nibh euismod tincidunt.
+* L​​​‌​aoreet dolore magna aliquam erat volutpat.
